@@ -1,4 +1,4 @@
-package org.example.mongodbdemo;
+package org.example.mongodbdemo.repository;
 
 import org.example.mongodbdemo.model.Student;
 import org.springframework.data.mongodb.repository.MongoRepository;
