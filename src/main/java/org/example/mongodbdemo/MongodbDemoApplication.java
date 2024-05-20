@@ -1,5 +1,6 @@
 package org.example.mongodbdemo;
 
+import com.mongodb.client.model.CreateCollectionOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.example.mongodbdemo.model.Address;
 import org.example.mongodbdemo.model.Gender;
@@ -9,6 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.core.CollectionOptions;
+import org.springframework.data.mongodb.core.MongoOperations;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,7 +26,15 @@ public class  MongodbDemoApplication {
 	}
 
 	@Bean
-	CommandLineRunner runner(StudentRepository repository) {
+	CommandLineRunner runner(StudentRepository repository, MongoOperations mongoOperations) {
+
+
+		// Create capped collection for logs
+		mongoOperations.createCollection(
+				"StudentLogs",
+				CollectionOptions.empty().capped().size(1024).maxDocuments(5)
+		);
+
 		return args -> {
 			Student student = new Student(
 					"Jamila",

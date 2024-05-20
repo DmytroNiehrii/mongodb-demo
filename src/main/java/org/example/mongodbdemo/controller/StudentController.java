@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.mongodbdemo.model.Student;
 import org.example.mongodbdemo.service.StudentService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,11 @@ public class StudentController {
     @GetMapping
     ResponseEntity<List<Student>> fetchAllStudents() {
         return ResponseEntity.ok(studentService.getAllStudents());
+    }
+
+    @GetMapping("/page")
+    ResponseEntity<Page<Student>> fetchStudentsPage(@RequestParam int page, @RequestParam int size) {
+        return ResponseEntity.ok(studentService.getStudentsPage(page, size));
     }
 
     @DeleteMapping
