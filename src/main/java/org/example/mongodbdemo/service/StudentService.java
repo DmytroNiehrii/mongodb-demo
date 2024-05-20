@@ -23,4 +23,8 @@ public class StudentService {
     public void deleteById(String id) {
         repository.deleteById(id);
     }
+
+    public Student insert(Student student) {
+        return repository.insert(student);
+    }
 }

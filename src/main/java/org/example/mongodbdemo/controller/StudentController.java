@@ -26,6 +26,10 @@ public class StudentController {
     @DeleteMapping
     void deleteStudent(@RequestParam String id) {
         studentService.deleteById(id);
-//        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping
+    ResponseEntity<Student> insertStudent(@RequestBody Student body) {
+        return ResponseEntity.ok(studentService.insert(body));
     }
 }
